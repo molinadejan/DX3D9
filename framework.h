@@ -14,6 +14,13 @@
 #include <memory.h>
 #include <tchar.h>
 
+#include <vector>
+#include <list>
+#include <string>
+#include <map>
+#include <set>
+#include <assert.h>
+
 #include <d3dx9.h>
 #pragma comment(lib, "d3d9.lib")
 #pragma comment(lib, "d3dx9.lib")
@@ -33,4 +40,10 @@ extern HWND g_hWnd;
 		return &instance;\
 		}
 
-#include "cDeviceManager.h"
+struct ST_PC_VERTEX
+{
+	D3DXVECTOR3 p;
+	D3DCOLOR	c;
+
+	enum { FVF = D3DFVF_XYZ | D3DFVF_DIFFUSE };
+};
