@@ -5,7 +5,7 @@
 
 class cDeviceManager
 {
-	SINGLETONE(cDeviceManager);
+	Singleton(cDeviceManager);
 
 private:
 	LPDIRECT3D9 m_pD3D;

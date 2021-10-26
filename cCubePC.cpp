@@ -3,9 +3,9 @@
 #include "cDeviceManager.h"
 
 cCubePC::cCubePC()
-	: m_vDirection(0, 0, 1)
+	: m_fRotY(0.0f)
+	, m_vDirection(0, 0, 1)
 	, m_vPosition(0, 0, 0)
-	, m_fRotY(0.0f)
 {
 	D3DXMatrixIdentity(&m_matWorld);
 }
@@ -101,7 +101,7 @@ void cCubePC::Update()
 	if (GetKeyState('S') & 0x8000)
 		m_vPosition = m_vPosition - (m_vDirection * 0.1f);
 
-	D3DXMATRIXA16 matR, matT;
+	D3DXMATRIXA16  matR, matT;
 
 	D3DXMatrixRotationY(&matR, m_fRotY);
 
@@ -115,10 +115,7 @@ void cCubePC::Update()
 
 void cCubePC::Render()
 {
-	D3DXMATRIXA16 matWorld;
-	D3DXMatrixIdentity(&matWorld);
-	g_pD3DDevice->SetTransform(D3DTS_WORLD, &matWorld);
-
+	g_pD3DDevice->SetTransform(D3DTS_WORLD, &m_matWorld);
 	g_pD3DDevice->SetFVF(ST_PC_VERTEX::FVF);
 	g_pD3DDevice->DrawPrimitiveUP(D3DPT_TRIANGLELIST, m_vecVertex.size() / 3,
 	&m_vecVertex[0], sizeof(ST_PC_VERTEX));

@@ -2,6 +2,7 @@
 
 class cCamera;
 class cCubePC;
+class cGrid;
 
 class cMainGame
 {
@@ -12,6 +13,7 @@ public:
 private:
 	cCubePC*  m_pCubePC;
 	cCamera*  m_pCamera;
+	cGrid*	  m_pGrid;
 
 public:
 	void Setup();

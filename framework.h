@@ -27,10 +27,10 @@
 
 extern HWND g_hWnd;
 
-#define SAFE_RELEASE(p) { if(p) p->Release(); p = NULL;}
-#define SAFE_DELETE(p) { if(p) delete p; p = NULL; }
+#define Safe_Release(p) { if(p) p->Release(); p = NULL;}
+#define Safe_Delete(p) { if(p) delete p; p = NULL; }
 
-#define SINGLETONE(class_name) \
+#define Singleton(class_name) \
 	private: \
 		class_name(void); \
 		~class_name(void); \
@@ -48,3 +48,29 @@ struct ST_PC_VERTEX
 
 	enum { FVF = D3DFVF_XYZ | D3DFVF_DIFFUSE };
 };
+
+struct ST_PNT_VERTEX
+{
+	// position
+	D3DXVECTOR3 p;
+
+	// normal
+	D3DXVECTOR3 n;
+
+	// texture
+	D3DXVECTOR3 t;
+
+	enum { FVF = D3DFVF_XYZ | D3DFVF_NORMAL | D3DFVF_TEX1 };
+};
+
+#include "cDeviceManager.h"
+
+#define Synthesize(varType, varName, funName) \
+	protected: varType varName; \
+	public : inline varType Get##funName(void) const { return varName; } \
+	public : inline void Set##funName(varType var) { varName = var; }
+
+#define Synthesize_Pass_By_Ref(varType, varName, funName) \
+	protected: varType varName; \
+	public: inline varType& Get##funName(void) { return varName; } \
+	public : inline void Set##funName(varType& var) { varName = var; }

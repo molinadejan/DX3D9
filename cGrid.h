@@ -1,7 +1,7 @@
 #pragma once
 #include "framework.h"
 
-class cPyramid;
+class cGizmo;
 
 class cGrid
 {
@@ -10,8 +10,8 @@ public:
 	~cGrid();
 
 private:
-	std::vector<ST_PC_VERTEX> m_vecVectax;
-	std::vector<cPyramid*> m_vecPyramid;
+	std::vector<ST_PC_VERTEX> m_vecVertax;
+	std::vector<cGizmo*> m_vecGizmo;
 
 public:
 	void Setup(int nNumHalfTile = 15, float fInterval = 1.0f);
