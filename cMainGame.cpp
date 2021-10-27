@@ -4,11 +4,13 @@
 #include "cCubePC.h"
 #include "cCamera.h"
 #include "cGrid.h"
+#include "cCubeMan.h"
 
 cMainGame::cMainGame()
 	: m_pCubePC(NULL)
 	, m_pCamera(NULL)
 	, m_pGrid(NULL)
+	, m_pCubeMan(NULL)
 { }
 
 cMainGame::~cMainGame()
@@ -16,16 +18,21 @@ cMainGame::~cMainGame()
 	Safe_Delete(m_pGrid);
 	Safe_Delete(m_pCubePC);
 	Safe_Delete(m_pCamera);
+	Safe_Delete(m_pCubeMan);
 	g_pDeviceManager->Destroy();
 }
 
 void cMainGame::Setup()
 {
-	m_pCubePC = new cCubePC;
-	m_pCubePC->Setup();
+	//m_pCubePC = new cCubePC;
+	//m_pCubePC->Setup();
+
+	m_pCubeMan = new cCubeMan;
+	m_pCubeMan->Setup();
 
 	m_pCamera = new cCamera;
-	m_pCamera->Setup(&m_pCubePC->GetPosition());
+	//m_pCamera->Setup(&m_pCubePC->GetPosition());
+	m_pCamera->Setup(&m_pCubeMan->GetPosition());
 
 	m_pGrid = new cGrid;
 	m_pGrid->Setup();
@@ -37,6 +44,9 @@ void cMainGame::Update()
 {
 	if (m_pCubePC)
 		m_pCubePC->Update();
+
+	if (m_pCubeMan)
+		m_pCubeMan->Update();
 
 	if (m_pCamera)
 		m_pCamera->Update();
@@ -53,8 +63,11 @@ void cMainGame::Render()
 	if (m_pGrid)
 		m_pGrid->Render();
 
-	if(m_pCubePC)
-		m_pCubePC->Render();
+	//if(m_pCubePC)
+		//m_pCubePC->Render();
+
+	if (m_pCubeMan)
+		m_pCubeMan->Render();
 
 	//
 	g_pD3DDevice->EndScene();
