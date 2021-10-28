@@ -17,6 +17,9 @@ private:
 	cGrid*	  m_pGrid;
 	cCubeMan* m_pCubeMan;
 
+	LPDIRECT3DTEXTURE9 m_pTexture;
+	std::vector<ST_PT_VERTEX> m_vecVertex;
+
 public:
 	void Setup();
 	void Update();
@@ -25,10 +28,13 @@ public:
 	void WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
 
 	void SetLight();
+	void SetTexture();
 	/*void Setup_Line();
 	void Draw_Line();
 
 	void Setup_Tri();
 	void Draw_Tri();*/
+
+	void DrawTexture();
 };
 

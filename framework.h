@@ -63,6 +63,17 @@ struct ST_PNT_VERTEX
 	enum { FVF = D3DFVF_XYZ | D3DFVF_NORMAL | D3DFVF_TEX1 };
 };
 
+struct ST_PT_VERTEX
+{
+	// position
+	D3DXVECTOR3 p;
+
+	// texture
+	D3DXVECTOR2 t;
+
+	enum { FVF = D3DFVF_XYZ | D3DFVF_TEX1 };
+};
+
 #include "cDeviceManager.h"
 
 #define Synthesize(varType, varName, funName) \

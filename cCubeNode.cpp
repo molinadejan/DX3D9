@@ -43,12 +43,21 @@ void cCubeNode::Update()
 
 	if(m_fRotX > D3DX_PI / 6.0f)
 	{
-		
+		m_fRotX = D3DX_PI / 6.0f;
+		m_fRotDeltaX *= -1;
+	}
+
+	if (m_fRotX < -D3DX_PI / 6.0f)
+	{
+		m_fRotX = -D3DX_PI / 6.0f;
+		m_fRotDeltaX *= -1;
 	}
 
 	D3DXMATRIXA16 matR, matT;
 	D3DXMatrixIdentity(&matR);
 	D3DXMatrixIdentity(&matT);
+
+	D3DXMatrixRotationX(&matR, m_fRotX);
 
 	D3DXMatrixTranslation(&matT, m_vLocalPos.x, m_vLocalPos.y, m_vLocalPos.z);
 
