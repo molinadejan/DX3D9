@@ -23,6 +23,12 @@ void cCubeMan::Setup()
 {
 	cCharacter::Setup();
 
+	ZeroMemory(&m_stMtl, sizeof(D3DMATERIAL9));
+
+	m_stMtl.Ambient = D3DXCOLOR(0.7f, 0.7f, 0.7f, 1.0f);
+	m_stMtl.Diffuse = D3DXCOLOR(0.7f, 0.7f, 0.7f, 1.0f);
+	m_stMtl.Specular= D3DXCOLOR(0.7f, 0.7f, 0.7f, 1.0f);
+
 	cBody* pBody = new cBody;
 	pBody->Setup();
 	pBody->SetParentWorldTM(&m_matWorld);
@@ -61,7 +67,9 @@ void cCubeMan::Render()
 {
 	if (g_pD3DDevice)
 	{
-		//g_pD3DDevice->SetRenderState(D3DRS_LIGHTING, true);
+		g_pD3DDevice->SetMaterial(&m_stMtl);
+		g_pD3DDevice->SetRenderState(D3DRS_LIGHTING, true);
+
 		cCharacter::Render();
 
 		D3DXMATRIXA16 matWorld;

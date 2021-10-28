@@ -13,7 +13,7 @@ public:
 
 protected:
 	cCubeNode* m_pRoot;
-
+	D3DMATERIAL9 m_stMtl;
 public:
 	virtual void Setup() override;
 	virtual void Update() override;

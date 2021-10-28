@@ -15,6 +15,7 @@ protected:
 
 	Synthesize(D3DXMATRIXA16*, m_pParentWorldTM, ParentWorldTM);
 	Synthesize(float, m_fRotDeltaX, RotDeltaX);
+	float m_fRotX;
 
 public:
 	virtual void AddChild(cCubeNode* pChild);

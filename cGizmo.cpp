@@ -10,8 +10,13 @@ cGizmo::~cGizmo()
 {
 }
 
-void cGizmo::Setup(D3DCOLOR c, D3DXMATRIX& mat)
+void cGizmo::Setup(D3DXCOLOR c, D3DXMATRIX& mat)
 {
+	ZeroMemory(&m_stMtl, sizeof(D3DMATERIAL9));
+	m_stMtl.Ambient = c;
+	m_stMtl.Diffuse = c;
+	m_stMtl.Specular = c;
+
 	m_matR = mat;
 	ST_PC_VERTEX v;
 
