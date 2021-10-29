@@ -41,9 +41,9 @@ void cMainGame::Setup()
 
 	SetLight();
 
-	SetTexture();
+	//SetTexture();
 
-	g_pD3DDevice->SetRenderState(D3DRS_LIGHTING, false);
+	g_pD3DDevice->SetRenderState(D3DRS_LIGHTING, true);
 }
 
 void cMainGame::Update()
@@ -75,7 +75,7 @@ void cMainGame::Render()
 	if (m_pCubeMan)
 		m_pCubeMan->Render();
 
-	DrawTexture();
+	//DrawTexture();
 
 	//
 	g_pD3DDevice->EndScene();

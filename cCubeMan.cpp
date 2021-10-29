@@ -9,12 +9,15 @@
 
 cCubeMan::cCubeMan()
 	: m_pRoot(NULL)
+	, m_pTexture(NULL)
 {
 
 }
 
 cCubeMan::~cCubeMan()
 {
+	Safe_Release(m_pTexture);
+
 	if (m_pRoot)
 		m_pRoot->Destroy();
 }
@@ -28,6 +31,9 @@ void cCubeMan::Setup()
 	m_stMtl.Ambient = D3DXCOLOR(0.7f, 0.7f, 0.7f, 1.0f);
 	m_stMtl.Diffuse = D3DXCOLOR(0.7f, 0.7f, 0.7f, 1.0f);
 	m_stMtl.Specular= D3DXCOLOR(0.7f, 0.7f, 0.7f, 1.0f);
+
+	//D3DXCreateTextureFromFile(g_pD3DDevice, L"batman.png", &m_pTexture);
+	D3DXCreateTextureFromFile(g_pD3DDevice, L"trump.png", &m_pTexture);
 
 	cBody* pBody = new cBody;
 	pBody->Setup();
@@ -73,6 +79,7 @@ void cCubeMan::Render()
 	{
 		g_pD3DDevice->SetMaterial(&m_stMtl);
 		g_pD3DDevice->SetRenderState(D3DRS_LIGHTING, true);
+		g_pD3DDevice->SetTexture(0, m_pTexture);
 
 		cCharacter::Render();
 
@@ -82,5 +89,7 @@ void cCubeMan::Render()
 
 		if (m_pRoot)
 			m_pRoot->Render();
+
+		g_pD3DDevice->SetTexture(0, NULL);
 	}
 }
