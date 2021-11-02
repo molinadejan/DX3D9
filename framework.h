@@ -7,7 +7,7 @@
 #include "targetver.h"
 #define WIN32_LEAN_AND_MEAN             // 거의 사용되지 않는 내용을 Windows 헤더에서 제외합니다.
 // Windows 헤더 파일
-#include <windows.h>
+#include <Windows.h>
 // C 런타임 헤더 파일입니다.
 #include <stdlib.h>
 #include <malloc.h>
@@ -58,7 +58,7 @@ struct ST_PNT_VERTEX
 	D3DXVECTOR3 n;
 
 	// texture
-	D3DXVECTOR3 t;
+	D3DXVECTOR2 t;
 
 	enum { FVF = D3DFVF_XYZ | D3DFVF_NORMAL | D3DFVF_TEX1 };
 };
@@ -85,3 +85,17 @@ struct ST_PT_VERTEX
 	protected: varType varName; \
 	public: inline varType& Get##funName(void) { return varName; } \
 	public : inline void Set##funName(varType& var) { varName = var; }
+
+#define Safe_Add_Ref(p) {if(p) p->AddRef(); }
+
+#define Synthesize_Add_Ref(varType, varName, funName) \
+	protected: varType varName; \
+	public: inline varType Get##funName(void) const { return varName; } \
+	public : inline void Set##funName(varType var) { \
+		if(varName = var) { \
+		Safe_Add_Ref(var); \
+		Safe_Release(varName); \
+		varName = var; \
+		} \
+	}
+
