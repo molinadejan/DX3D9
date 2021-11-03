@@ -14,7 +14,7 @@ cObjMap::~cObjMap()
 void cObjMap::Load(char* szFolder, char* szFile, D3DXMATRIXA16* pmat)
 {
 	cObjLoader loader;
-	loader.LoadSurface(m_vecSurface, (char*)"obj", (char*)"box.obj");
+	loader.LoadSurface(m_vecSurface, szFolder, szFile, pmat);
 }
 
 bool cObjMap::GetHeight(IN float x, OUT float& y, IN float z)

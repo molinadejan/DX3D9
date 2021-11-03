@@ -53,7 +53,7 @@ void cCharacter::Update(iMap* map)
 		}
 	}
 
-	D3DXMatrixTranslation(&matT, m_vPosition.x, m_vPosition.y, m_vPosition.z);
+	D3DXMatrixTranslation(&matT, m_vPosition.x, m_vPosition.y + 1.0f, m_vPosition.z);
 	m_matWorld = matR * matT;
 }
 
