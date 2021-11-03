@@ -6,6 +6,7 @@
 #include "cRightArm.h"
 #include "cLeftLeg.h"
 #include "cRightLeg.h"
+#include "iMap.h"
 
 cCubeMan::cCubeMan()
 	: m_pRoot(NULL)
@@ -65,9 +66,9 @@ void cCubeMan::Setup()
 	m_pRoot->AddChild(pRightLeg);
 }
 
-void cCubeMan::Update()
+void cCubeMan::Update(iMap* map)
 {
-	cCharacter::Update();
+	cCharacter::Update(map);
 
 	if (m_pRoot)
 		m_pRoot->Update();

@@ -8,6 +8,8 @@
 #include "cGroup.h"
 #include "cObject.h"
 #include "cObjLoader.h"
+#include "cObjMap.h"
+#include "iMap.h"
 
 cMainGame::cMainGame()
 	: m_pCubePC(NULL)
@@ -15,6 +17,7 @@ cMainGame::cMainGame()
 	, m_pGrid(NULL)
 	, m_pCubeMan(NULL)
 	, m_pTexture(NULL)
+	, m_pMap(NULL)
 { }
 
 cMainGame::~cMainGame()
@@ -24,11 +27,17 @@ cMainGame::~cMainGame()
 	Safe_Delete(m_pCamera);
 	Safe_Delete(m_pCubeMan);
 	Safe_Release(m_pTexture);
+	Safe_Delete(m_pMap);
 
 	for (auto p : m_vecGroup)
 		Safe_Release(p);
 
 	m_vecGroup.clear();
+
+	for(auto p : m_vecMap)
+		Safe_Release(p);
+
+	m_vecMap.clear();
 
 	g_pDeviceManager->Destroy();
 }
@@ -48,10 +57,10 @@ void cMainGame::Setup()
 	m_pGrid = new cGrid;
 	m_pGrid->Setup();
 
-	Setup_Obj();
-
+	//Setup_Obj();
+	Setup_Surface();
 	SetLight();
-
+	Setup_Map();
 	//SetTexture();
 
 	g_pD3DDevice->SetRenderState(D3DRS_LIGHTING, true);
@@ -63,7 +72,7 @@ void cMainGame::Update()
 		m_pCubePC->Update();
 
 	if (m_pCubeMan)
-		m_pCubeMan->Update();
+		m_pCubeMan->Update(m_pMap);
 
 	if (m_pCamera)
 		m_pCamera->Update();
@@ -86,7 +95,8 @@ void cMainGame::Render()
 	if (m_pCubeMan)
 		m_pCubeMan->Render();
 
-	Draw_Obj();
+	//Draw_Obj();
+	Draw_Map();
 
 	//DrawTexture();
 
@@ -174,6 +184,12 @@ void cMainGame::Setup_Obj()
 	loader.Load(m_vecGroup, (char*)"obj", (char*)"box.obj");
 }
 
+void cMainGame::Setup_Map()
+{
+	cObjLoader loader;
+	loader.Load(m_vecMap, (char*)"obj", (char*)"map.obj");
+}
+
 void cMainGame::Draw_Obj()
 {
 	D3DXMATRIXA16 matWorld, matS, matR;
@@ -184,4 +200,26 @@ void cMainGame::Draw_Obj()
 
 	for (auto p : m_vecGroup)
 		p->Render();
+}
+
+void cMainGame::Draw_Map()
+{
+	D3DXMATRIXA16 matWorld, matS, matR;
+	D3DXMatrixScaling(&matS, 0.01f, 0.01f, 0.01f);
+	D3DXMatrixRotationX(&matR, -D3DX_PI / 2.0f);
+	matWorld = matS * matR;
+	g_pD3DDevice->SetTransform(D3DTS_WORLD, &matWorld);
+
+	for (auto p : m_vecMap)
+		p->Render();
+}
+
+void cMainGame::Setup_Surface()
+{
+	D3DXMATRIXA16 matWorld, matS, matR;
+	D3DXMatrixScaling(&matS, 0.01f, 0.01f, 0.01f);
+	D3DXMatrixRotationX(&matR, -D3DX_PI / 2.0f);
+	matWorld = matS * matR;
+
+	m_pMap = new cObjMap((char*)"obj", (char*)"map_surface.obj", &matWorld);
 }

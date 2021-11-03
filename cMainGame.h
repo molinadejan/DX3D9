@@ -6,6 +6,8 @@ class cGrid;
 class cCubeMan;
 class cGroup;
 class cObject;
+class cObjMap;
+class iMap;
 
 class cMainGame
 {
@@ -22,6 +24,9 @@ private:
 
 	LPDIRECT3DTEXTURE9 m_pTexture;
 	std::vector<ST_PT_VERTEX> m_vecVertex;
+	std::vector<cGroup*>      m_vecMap;
+
+	iMap* m_pMap;
 
 public:
 	void Setup();
@@ -39,7 +44,13 @@ public:
 	void Draw_Tri();*/
 
 	void DrawTexture();
+
 	void Setup_Obj();
+	void Setup_Map();
+
 	void Draw_Obj();
+	void Draw_Map();
+
+	void Setup_Surface();
 };
 

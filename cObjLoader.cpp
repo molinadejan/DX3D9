@@ -104,7 +104,78 @@ void cObjLoader::Load(std::vector<cGroup*>& vecGroup, char* szFolder, char* szFi
 	}
 
 	fclose(fp);
+}
 
+void cObjLoader::LoadSurface(std::vector<D3DXVECTOR3>& vecSurface, char* szFolder, char* szFile, D3DXMATRIXA16* pmat)
+{
+	vector<D3DXVECTOR3>      vecV;
+	vector<ST_PNT_VERTEX>   vecVertex;
+
+	string sFullPath(szFolder);
+	sFullPath += (string("/") + string(szFile));
+
+	FILE* fp;
+	fopen_s(&fp, sFullPath.c_str(), "r");
+
+	string sMtlName; //mtllib ./box.mtl
+
+	while (true)
+	{
+		if (feof(fp)) break;
+
+		char szTemp[1024];
+		fgets(szTemp, 1024, fp);
+		if (szTemp[0] == '#') // #는 안 읽는다
+		{
+			continue;
+		}
+		else if (szTemp[0] == 'm')
+		{
+
+		}
+		else if (szTemp[0] == 'g')
+		{
+
+		}
+		else if (szTemp[0] == 'v')
+		{
+			if (szTemp[1] == ' ') //vertex
+			{
+				float x, y, z;
+				sscanf_s(szTemp, "%*s %f %f %f", &x, &y, &z); // 맨앞 문자 버리고 float 3개
+				vecV.push_back(D3DXVECTOR3(x, y, z));
+			}
+			else if (szTemp[1] == 't') //texture
+			{
+
+			}
+			else if (szTemp[1] == 'n') //normal
+			{
+
+			}
+		}
+		else if (szTemp[0] == 'u') //material
+		{
+
+		}
+		else if (szTemp[0] == 'f') //index data of v t n 
+		{
+			int nIndex[3];
+			sscanf_s(szTemp, "%*s %d/%*d/%*d %d/%*d/%*d %d/%*d/%*d",
+				&nIndex[0], &nIndex[1], &nIndex[2]);
+
+			for (int i = 0; i < 3; ++i)
+				vecSurface.push_back(vecV[nIndex[i] - 1]);
+		}
+	}
+
+	fclose(fp);
+
+	if(pmat)
+	{
+		for(size_t i = 0; i < vecSurface.size(); ++i)
+			D3DXVec3TransformCoord(&vecSurface[i], &vecSurface[i], pmat);
+	}
 }
 
 void cObjLoader::LoadMtlLib(char* szFolder, char* szFile)

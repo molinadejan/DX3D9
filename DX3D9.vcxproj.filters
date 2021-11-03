@@ -19,6 +19,9 @@
     <Filter Include="Obj">
       <UniqueIdentifier>{a8d8ccac-c4f6-436d-8d52-c835447819d5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Map">
+      <UniqueIdentifier>{0393d2e5-e8d6-4d90-a83c-e323bb6385e2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -99,6 +102,12 @@
     <ClInclude Include="cTextureManager.h">
       <Filter>Obj</Filter>
     </ClInclude>
+    <ClInclude Include="iMap.h">
+      <Filter>Map</Filter>
+    </ClInclude>
+    <ClInclude Include="cObjMap.h">
+      <Filter>Map</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DX3D9.cpp">
@@ -169,6 +178,12 @@
     </ClCompile>
     <ClCompile Include="cTextureManager.cpp">
       <Filter>Obj</Filter>
+    </ClCompile>
+    <ClCompile Include="iMap.cpp">
+      <Filter>Map</Filter>
+    </ClCompile>
+    <ClCompile Include="cObjMap.cpp">
+      <Filter>Map</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

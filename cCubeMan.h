@@ -4,6 +4,7 @@
 #include "cBody.h"
 
 class cCubeNode;
+class iMap;
 
 class cCubeMan : public cCharacter
 {
@@ -18,7 +19,7 @@ protected:
 
 public:
 	virtual void Setup() override;
-	virtual void Update() override;
+	virtual void Update(iMap* map) override;
 	virtual void Render() override;
 };
 
